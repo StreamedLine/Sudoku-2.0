@@ -1,6 +1,14 @@
+
 body {
 	text-align: center;
 }
+
+h1 {
+	display: inline-block;
+}
+
+
+/*SUDOKU GRID*/
 
 table {
 	border-collapse: collapse;
@@ -13,5 +21,73 @@ td {
 	width: 2em;
 	height: 2em;
 	border: 1px solid grey;
-	/*text-align: center;*/
+	cursor: pointer;
 }
+
+
+/*RANGE INPUT*/
+
+input[type=range]{
+
+}
+
+
+/*MENU BUTTON*/
+
+.menu {
+	display: inline-block;
+	width: 2em;
+	height: 2em;
+	padding: 0.4em;
+	margin-left: 0.1em;
+	border-radius: 10%;
+	cursor: pointer;
+	box-sizing: border-box;
+	position: relative;
+}
+
+.menu:hover {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.bar {
+	display: block;
+	height: 0.3em;
+	background-color: black;
+	margin: 0.25em 0;
+}
+
+.menu:active .bar {
+	background-color: green;
+}
+
+	/*MENU PAGE*/
+
+.menu .controlPage {
+	z-index: 5;
+	position: absolute;
+	width: 20em;
+	text-align: left;
+	display: none;
+	background-color: white;
+	border: 2px solid darkgreen;
+	border-top: none;
+	padding-left: 0.25em
+}
+
+.menu .input,
+.menu label {
+	height: 1.25em;
+	display: inline-block;
+	margin: 0.15em;
+	min-width: 2em;
+}
+.menu .input {
+	border-bottom: 1px dotted;
+}
+
+
+
+
+
