@@ -1,8 +1,21 @@
 
-// MENU TOGGLING
+//COMPLETE DOCUMENT.BODY RESIZE
+//allows for easier gameplay and mobile compatibility
+(function(){
+	function changeBoardSize() {
+		document.body.style.fontSize = $(this).val() + 'em';
+	}
+
+	$('#em').change(changeBoardSize);
+	$('#em').on('mousemove', changeBoardSize);
+}());
+
+
+// MENU 
 
 (function(){
 
+	// MENU TOGGLING
 	var $menuBtn = $('#menuBtn'),
 		$controlPage = $('.controlPage'),
 		hiding = true;
@@ -28,6 +41,23 @@
 			hiding = true;
 		}
 	});
+
+	// UPDATE GRID SIZE
+	$('#applyGridSize').on('click', function(){
+		if (confirm('This will reset the board. This is not reversible.')) {
+			var $gridInputs = $(".gridSize"),
+			boxC = getInt($gridInputs[0].innerHTML),
+			boxW = getInt($gridInputs[1].innerHTML);
+
+			board_dom = init_dom(boxC, boxW);
+		}
+	});
+
+	// LABELS HIGHLIGHT CONTENTEDITABLE DIVS WHEN CLICKED 
+	// its an ugly hack because the caret is placed before the text not after
+	$('label').on('click', function() {
+		console.log($(this).next().focus())
+	});
 }());
 
 
@@ -35,26 +65,26 @@
 
 function init_dom (box_count, box_width){
 
+	//if this isn't the initial dom creation 
+		//data structure needs to be manually reset with init_dom.userReset
+	if (init_dom.postInit) {
+		init_dom.userReset(box_count, box_width);
+		return
+	} else {
+		init_dom.postInit = true;
+	}
+
+	//will contain table td dom elements
 	var boardArr = [];
 
-	var board_size = {
-		box_count: box_count,
-		box_width: box_width,
-		setBoxCount: function setBoxCount(num) {
-			//regexp tests for number
-			this.box_count = num;
-		},
-		setBoxWidth: function setBoxWidth(num) {
-			//regexp tests for number
-			this.box_width = num;
-		}
-	};
-
+	//creates the dom (actual sudoku board)
 	function install_board_dom(boxW, boxC) {
 		var $table = $('#sudoku'),
 		   	width = boxW * boxC,
 		   	row, td;
 		
+		$table.html('');
+
 		for (var i = 0; i < width; i++) {
 			$row = $('<tr></tr>');
 			for (var j = 0; j < width; j++) {
@@ -66,6 +96,7 @@ function init_dom (box_count, box_width){
 		}
 	}
 
+	//creates the unique sudoku borders
 	function draw_table_borders(boxW, boxC) {
 		$('tr').each(function(j, tr) {
 			var $td = $(tr).find('td');
@@ -82,17 +113,9 @@ function init_dom (box_count, box_width){
 		});
 	}
 
-	(function(){
-		function changeBoardSize() {
-			document.body.style.fontSize = $(this).val() + 'em';
-		}
-
-		$('#em').change(changeBoardSize);
-		$('#em').on('mousemove', changeBoardSize);
-	}());
-
-	install_board_dom(board_size.box_width, board_size.box_count);
-	draw_table_borders(board_size.box_width, board_size.box_count);
+	//call above functions and populate the boardArr array
+	install_board_dom(box_width, box_count);
+	draw_table_borders(box_width, box_count);
 
 	return {
 		domArr :boardArr,

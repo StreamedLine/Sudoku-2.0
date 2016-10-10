@@ -84,7 +84,27 @@ input[type=range]{
 	min-width: 2em;
 }
 .menu .input {
+	text-align: center;
 	border-bottom: 1px dotted;
+	font-weight: bold;
+}
+
+
+/*GENERAL*/
+
+.btn {
+	text-align: center;
+	border: 1px solid steelblue;
+	border-radius: 10%;
+	padding: 0.2em;
+	max-width: 3em;
+}
+.btn:hover {
+	border-color: blue;
+}
+.btn:active {
+	background-color: lightgrey;
+	color: grey;
 }
 
 
