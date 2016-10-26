@@ -46,8 +46,8 @@
 	$('#applyGridSize').on('click', function(){
 		if (confirm('This will reset the board. This is not reversible.')) {
 			var $gridInputs = $(".gridSize"),
-			boxC = getInt($gridInputs[0].innerHTML),
-			boxW = getInt($gridInputs[1].innerHTML);
+			boxC = extractInt($gridInputs[0].innerHTML),
+			boxW = extractInt($gridInputs[1].innerHTML);
 
 			board_dom = init_dom(boxC, boxW);
 		}
@@ -88,7 +88,7 @@ function init_dom (box_count, box_width){
 		for (var i = 0; i < width; i++) {
 			$row = $('<tr></tr>');
 			for (var j = 0; j < width; j++) {
-				td = $(`<td>${j}</td>`);
+				td = $('<td></td>');
 				$row.append(td);
 				boardArr.push(td);
 			}
